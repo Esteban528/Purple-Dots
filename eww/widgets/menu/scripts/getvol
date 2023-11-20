@@ -1,0 +1,16 @@
+#!/bin/sh
+
+if command -v pactl &>/dev/null; then
+    if pactl list sinks | grep -q "Mute: yes"; then
+        echo 0
+        exit
+    else
+        pactl list sinks | grep 'Volume:' | awk '{print $5}' | sed -n '1p' | sed 's/%//'
+    fi
+else
+    echo "Error: pactl not found. Please install PulseAudio."
+    exit 1
+fi
+
+
+

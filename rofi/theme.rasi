@@ -1,0 +1,94 @@
+* {
+  accent:           #a5c6e1;
+  background:       #171724;
+  background-light: #1e1e2e;
+  background-focus: #28293d;
+  foreground:       #bfbfcb;
+  on:               #ccd389;
+  off:              #eca8a8;
+}
+
+* {
+  text-font:                            "NotoSans Nerd Font 11";
+  inputbar-margin:                      3px 3px;
+  prompt-padding:                       10px 10px;
+  entry-padding:                        10px 0px 10px 0px;
+  list-element-padding:                 8px 10px 8px 10px;
+  list-element-margin:                  3px;
+  list-element-border:                  0px 0px 0px 4px;
+  apps-textbox-prompt-colon-padding:    10px -5px 0px 0px;
+}
+
+element-icon { 
+  padding: 5px 5px 5px 0px;
+  size: 2ch; 
+}
+
+#window {
+  width: 50%;
+  height: 45%;
+  padding: 30px 30px;
+}
+
+* {
+  background-color: @background;
+  text-color: @foreground;
+  font: @text-font;
+}
+
+inputbar,
+prompt,
+textbox-prompt-colon,
+entry {
+  background-color: @background-light;
+}
+
+
+inputbar {
+  children: [ prompt, textbox-prompt-colon, entry ];
+  margin: @inputbar-margin;
+}
+
+prompt {
+  padding: @prompt-padding;
+  background-color: @accent;
+  text-color: @background;
+}
+
+textbox-prompt-colon {
+  expand: false;
+  str: "  ::  ";
+  padding: @apps-textbox-prompt-colon-padding;
+}
+
+entry {
+  text-color: @accent;
+  padding: @entry-padding;
+}
+
+element {
+  padding: @list-element-padding;
+  margin: @list-element-margin;
+  border: @list-element-border;
+  background-color: @background-light;
+  border-color: @background-light;
+}
+
+element,
+element-icon,
+element-text {
+  background-color: @background-light;
+  border-color: @background-light;
+}
+
+element.selected, 
+element-icon.selected,
+element-text.selected  {
+  background-color: @background-focus;
+  text-color: @accent;
+  border-color: @accent;
+}
+
+/*
+vim:ft=css 
+*/

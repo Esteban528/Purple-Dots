@@ -1,0 +1,98 @@
+#!/bin/bash
+
+CONFIG="$HOME/.config/eww"
+BAR="$CONFIG/bar"
+MENU="$CONFIG/widgets/menu"
+#FILE="$HOME/.cache/eww_launch.xyz"
+
+action=$2
+mode=$1
+optional1=$3
+optional2=$4
+optional3=$5
+optional4=$6
+optional5=$7
+
+if [ "$mode" == "bar" ]; then
+  EWW="$HOME/.local/bin/eww/eww -c $BAR"
+  KEY="bar"
+
+  if ! pidof eww > /dev/null; then
+    ${EWW} daemon -c "$BAR"
+    sleep 1
+  fi
+
+elif [ "$mode" == "menu" ]; then
+  EWW="$HOME/.local/bin/eww/eww -c $MENU"
+  KEY="menu"
+
+  if ! pidof eww > /dev/null; then
+    ${EWW} daemon -c "$MENU"
+    sleep 1
+  fi
+fi
+
+
+FILE="$HOME/.cache/${KEY}.eww_launch.xyz"
+STATUS_FILE="${FILE}.status"
+
+run_eww() {
+  ${EWW} daemon
+}
+
+open() {
+  ${EWW} open-many "$KEY"
+  touch $STATUS_FILE 
+}
+
+close() {
+  ${EWW} close "$KEY"
+  rm $STATUS_FILE 
+}
+
+getDaemon() {
+  return "$EWW"
+}
+
+## Launch or close widgets accordingly
+toggleDaemon() {
+  if [ ! -f "$FILE" ]; then
+    startDaemon
+  else
+    stopDaemon
+  fi
+}
+
+startDaemon() {
+  touch "$FILE"
+  run_eww
+}
+
+stopDaemon() {
+  ${EWW} close-all && killall eww
+  rm "$FILE"
+}
+
+if [ "$action" == 0 ]; then
+  toggleDaemon
+elif [ "$action" == "daemon" ]; then
+  ${EWW} "$optional1" "$optional2" "$optional3" "$optional4"
+elif [ "$action" == "start" ]; then
+  startDaemon
+elif [ "$action" == "stop" ]; then
+  stopDaemon
+elif [ "$action" == "open" ]; then
+  startDaemon
+  open
+elif [ "$action" == "close" ]; then
+  close
+elif [ "$action" == "restart" ]; then
+  stopDaemon
+  startDaemon
+elif [ "$action" == "toggle" ]; then
+  if [ ! -f "$STATUS_FILE" ]; then
+    open
+  else
+    close
+  fi
+fi

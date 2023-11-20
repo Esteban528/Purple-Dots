@@ -1,0 +1,102 @@
+(defpoll clock_time :interval "5m" "date +\%I")
+(defpoll clock_minute :interval "5s" "date +\%M")
+(defpoll clock_date :interval "10h" "date '+%d/%m'")
+
+(defvar time_rev false)
+
+(defvar eww "$HOME/.local/bin/eww/eww -c $HOME/.config/eww/bar")
+
+
+(defwindow bar
+  :monitor 0 ;; Optional for X11
+  :stacking "bg"
+  :windowtype "dock"
+  :class "bar"
+  :wm-ignore true
+  :geometry (geometry
+    :y "0.4%"
+    :width "99.3%"
+    :height "3%"
+    :anchor "top center"
+  )
+  (bar)
+  
+)
+
+(defwidget bar []
+  
+  (box :class ""
+    :orientation "h"
+    :space-evenly true
+    ; :halign "center"
+    :walign "center"
+    :spacing 0
+    (ws)
+    (separator)
+    (info)
+  )
+)
+
+(defwidget separator []
+  (box :class "info"
+    :orientation "h"
+    :space-evenly true
+    :halign "center"
+    :spacing 10
+    
+    (button :onclick "sh $HOME/.config/eww/scripts/run menu toggle" "  󰣇  ")
+  )
+)
+
+(defwidget info []
+  (box :class "info"
+    :orientation "h"
+    :space-evenly true
+    :halign "end"
+    :spacing 10
+    (clock_module)
+  )
+)
+
+(defwidget clock_module []
+  (eventbox :onhover "${eww} update time_rev=true"
+    :onhoverlost "${eww} update time_rev=false"
+    
+    (box :class "module" :space-evenly "false" :orientation "h" :spacing "3"
+      (label :text clock_time :class "clock_time_class" )
+      (label :text ":" :class "clock_time_sep" )
+      (label :text clock_minute :class "clock_minute_class")
+      
+      
+      (revealer :transition "slideleft"
+        :reveal time_rev
+        :duration "550ms"
+        (label :text clock_date :class "clock_minute_class")
+      ))))
+
+(deflisten areas :initial "()" `sh $HOME/.config/bspwm/script/workspace.sh`)
+;; (defpoll areas :interval "1s" `sh $HOME/.config/bspwm/script/workspace.sh`)
+
+(defpoll focused :interval "0.4s" "sh $HOME/.config/bspwm/script/currentws.sh")
+
+
+(defwidget ws []
+  (box :class "ws"
+    :orientation "horizontal"
+    :space-evenly false
+
+    (literal :content areas)
+    (big-ws :focused-ws focused)))
+
+
+
+(defwidget big-ws [focused-ws]
+  (box
+    :class "big-ws"
+    :hexpand false
+    :vexpand false
+    :height "20"
+    :width "21"
+    
+    (label
+    :text "${focused-ws}")))

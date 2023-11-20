@@ -1,0 +1,197 @@
+//Variables 
+// Colores púrpura pastel
+$primary: #705192;
+$light: #E8C6F0;
+$light2: #A8B;
+$dark: #331641;
+$dark2: #221531;
+
+// Colores para el modo oscuro en tonos pastel
+$background-dark: #1A1A1D;
+$background-medium: #2D2D30;
+$text-light: #E0E0E0;
+$text-medium: #B8B8B8;
+
+$bradius: 4px;
+$brwidth: 2px;
+
+* {
+  font-family: HackNerdFont;
+  all: unset;
+}
+
+.menu {
+  background-color: $background-dark;
+  border-color: $primary;
+  opacity: 0.9;
+
+  border-style: solid;
+  border-width: $brwidth;
+  border-radius: $bradius;
+
+   box-shadow:
+    1px 1px 2px $dark,
+    0 0 1em $dark,
+    0 0 0.2em $primary;
+}
+
+.image {
+  border-width: $brwidth;
+  border-color: $primary;
+  border-style: solid;
+
+  border-radius: 4px;
+}
+
+.info {
+  color: #d7beda;
+  font-weight: 700;
+  margin-right: 10px;
+  font-size: 23;
+}
+
+.section{
+  padding: 0 4;
+  margin: 40px; 
+} 
+
+.label {
+  color: $light;
+  font-size:17px;
+
+  &:hover{
+    color: $light2;
+  }
+}
+
+.left {
+  margin: 0;
+}
+
+.buttons {
+  border-radius: $bradius;
+  border-style: solid;
+  border-width: $brwidth;
+  border-color: $primary;
+
+  margin: 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.button {
+  font-size: 40px;  
+  padding: 16.98px;
+  margin: 0;
+  opacity: 1;
+  color: $primary;
+
+  text-shadow:
+    1px 1px 2px $dark,
+    0 0 1em $dark,
+    0 0 0.15em $dark;
+  
+  &:hover{
+    color: $light;
+  }
+}
+
+.app {
+  background-size: 64px;
+  min-height: 60px;
+  min-width: 60px;
+
+  background-color: $light;
+  color: $dark;
+  font-size: 40px;
+  padding: 10px 12px 10px ;
+  border: 2px solid $primary;
+
+  border-radius: $bradius;
+
+  :hover {
+      color: $primary; 
+
+  }
+
+  &.a{
+    background-color: $dark;
+    color: $light;
+    border: $brwidth solid $primary;
+
+  }
+
+  button{
+    padding: 0;
+    margin: 5px;
+  }
+}
+
+.section-apps {
+  margin-top: 19.5px;
+}
+
+.sidestuff {
+  margin-top: 9px;
+}
+
+.sidestuff slider {
+  all: unset;
+  color: #ffd5cd;
+}
+
+.metric {
+  font-size: 20px;
+
+  margin-top:20px;
+
+}
+
+.metric scale trough {
+  all: unset;
+  background-color: #4e4e4e;
+  border-radius: 50px;
+  min-height: 3px;
+  min-width: 50px;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+.metric scale trough highlight {
+  all: unset;
+  background-color: $primary;
+  color: #000000;
+  border-radius: 10px;
+
+}
+.metric scale trough {
+  all: unset;
+  background-color: #4e4e4e;
+  border-radius: 50px;
+  min-height: 11px;
+  min-width: 200px;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+.label-ram {
+  font-size: large;
+}
+
+.volume{
+
+  margin-top: 0;
+}
+
+.volume scale trough highlight{
+  all: unset;
+  background-color: $light;
+  box-shadow: 6px 6px 26px -2px $light;
+  border-radius: 10px;
+  color: #000000;
+  
+  &:hover {
+    box-shadow: 12px 10px 26px -1px $light2;
+    background-color: $light2;
+  }
+}
+
+

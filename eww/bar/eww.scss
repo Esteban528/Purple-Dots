@@ -1,0 +1,139 @@
+//Variables 
+// Colores púrpura pastel
+$primary: #705192;
+$light: #E8C6F0;
+$dark: #331641;
+
+// Colores para el modo oscuro en tonos pastel
+$background-dark: #1A1A1D;
+$background-medium: #2D2D30;
+$text-light: #E0E0E0;
+$text-medium: #B8B8B8;
+
+$bradius: 4px;
+
+
+
+* {
+  margin: 0 3px;
+  font-family: HackNerdFont;
+  all: unset;
+}
+
+.bar {
+  background-color: $background-dark;
+  border-color: $primary;
+  opacity: 0.85;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: $bradius;
+}
+
+.info {
+  color: $light;
+  font-weight: 700;
+  margin-right: 10px;
+  font-size: 23;
+  text-shadow:
+    1px 1px 2px $dark,
+    0 0 1em $primary,
+    0 0 0.2em $primary;
+  :hover{
+    color: $primary;
+    font-size: 24;
+  }
+}
+
+/* Widgets */
+
+.clock_time_sep {
+  font-size: 16;
+  color: $light;
+  margin: 0px 4px 1px 4px;
+}
+.clock_time_class, .clock_minute_class {
+  font-size: 23;
+}
+.clock_date_class {
+  font-size: 18;
+  margin: 0px 5px 0px -1px;
+  color: $light;
+}
+.clock_minute_class {
+  margin: 0px 5px 0px 3px;
+  color: $light;
+}
+
+.clock_time_class {
+  color: $light;
+  font-weight: bold;
+  margin: 0px 5px 0px 0px;
+}
+
+.section{
+  background-color: $background-medium;
+  padding: 0 4;
+  margin: 3px;
+  border-radius: $bradius;
+  border-color: $primary;
+  border-style: solid;
+  border-width: 0.1px;
+} 
+
+// WS
+
+.ws {
+  margin-left: 5px;
+
+  .small-ws {
+      text-shadow:
+        1px 1px 2px $dark,
+        0 0 1em $dark,
+        0 0 0.2em $dark;
+
+      margin: 0 4px;
+
+      &.status-empty {
+          font-family: "HackNerdFont";
+          font-size: 28;
+          color: $primary;
+  
+      }
+      &.status-occupied {
+          font-family: "HackNerdFont";
+          font-size: 28;
+          color: $primary;
+      }
+      &.status-focused {
+          font-family: "HackNerdFont";
+          font-size: 28;
+          color: $light;
+
+      }
+      &.status-urgent {
+          font-family: "HackNerdFont";
+          font-size: 28;
+          color: $dark;
+      }
+
+      
+
+  }
+
+  .big-ws {
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+      margin: 4px;
+      margin-left: 10px;
+      padding-left: 10px;
+      padding-right: 10px;
+      border-radius: $bradius;
+
+      //background-image: url(svg/diamond-fill.svg);
+      background-color: $primary;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+  }
+}

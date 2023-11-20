@@ -1,0 +1,235 @@
+(defvar eww "$HOME/.local/bin/eww/eww -c $HOME/.config/widgets/menu")
+
+;; Uptime vars
+(defpoll UPHOUR :interval "5s" `uptime -p | awk '{print $2 \" \" $3}' | sed 's/,//g'`)
+(defpoll UPMIN :interval "5s" `uptime -p | awk '{print $4 \" \" $5}'`)
+(defpoll volume :interval "1s" "sh $HOME/.config/eww/widgets/menu/scripts/getvol")
+(defpoll system :interval "12h" "sh $HOME/.config/eww/widgets/menu/scripts/hostname")
+
+(defwindow menu
+  :monitor 0 ;; Optional for X11
+  :stacking "bg"
+  :windowtype "dock"
+  :wm-ignore true
+  :geometry (geometry
+    :x "0%"
+    :y "5%"
+    :width "30%"
+    :height "20%"
+    :anchor "top center"
+  )
+  (menu)
+)
+
+(defwidget menu []
+
+  (box :class "section"
+    :orientation "h"
+    :space-evenly false 
+    :spacing 40
+    
+    (leftside)
+    (rightside)
+  )
+)
+
+(defwidget leftside []
+
+  (box :class "left"
+    :orientation "v"
+    :space-evenly false 
+    :valign "center"
+    :halign "center"
+    :spacing 0
+
+    (img)
+    (buttons)
+  ) 
+)
+
+(defwidget buttons []
+  (box
+    :class "buttons section"
+    :orientation "h"
+    :space-evenly true 
+    :valign "start"
+    :halign "center"
+    :spacing 5
+    (eventbox :cursor "hand"
+      (button 
+        :class "button power"
+        :onclick "poweroff"
+        "⏻ "
+      )
+    )
+    (eventbox :cursor "hand"
+      (button 
+        :class "button reboot"
+        :onclick "reboot"
+        " "
+      )
+    )
+    (eventbox :cursor "hand"
+      (button 
+        :class "button suspend"
+        :onclick "systemctl suspend"
+        "󰤄 "
+      )
+    )
+    (eventbox :cursor "hand"
+      (button 
+        :class "button logout"
+        :onclick "bspc quit"
+        "󰗼 "
+      )
+    )
+  )
+)
+
+
+(defwidget img []
+  (box
+    :orientation "h"
+    :space-evenly true 
+    :valign "center"
+    :halign "center"
+    :spacing 5
+
+    (image 
+      :class "image"
+      :path "images/image.jpeg"
+      :image-width 312 
+      :image-height 312
+    )
+  )
+)
+
+(defwidget rightside []
+
+  (box :class "right"
+    :orientation "v"
+    :space-evenly false 
+    :valign "start"
+    :halign "center"
+    :spacing 9
+    (label :text system :class "label")
+    (sidestuff)
+    (apps)
+  )
+)
+
+(defwidget apps []
+    (box :class ""
+    :orientation "v"
+    :space-evenly false 
+    :valign "start"
+    :halign "start"
+    :spacing 3
+    
+    (section-apps1)
+    (section-apps2)
+  )
+)
+
+(defwidget section-apps1 []
+
+  (box :class "section-apps"
+    :orientation "h"
+    :space-evenly false 
+    :valign "center"
+    :halign "center"
+    :spacing 5
+    
+    (appw :label " "
+      :style "" 
+      :command "firefox www.github.com/Esteban528 > /dev/null")
+    (appw :label "󰈹 "
+      :style "a" 
+      :command "firefox > /dev/null")
+
+    (appw :label " "
+      :style "" 
+      :command "wezterm start joshuto")
+  )
+)
+
+(defwidget section-apps2 []
+
+  (box :class "section-apps"
+    :orientation "h"
+    :space-evenly false 
+    :valign "center"
+    :halign "center"
+    :spacing 5
+    
+    (appw :label "󰨞 "
+      :style "a" 
+      :command "code")
+    (appw :label "󰙯 "
+          :style "" 
+          :command "discord > /dev/null")
+    (appw :label "󰊫 "
+          :style "a" 
+          :command "firefox https://mail.google.com/mail/ > /dev/null")
+    )
+)
+
+(defwidget appw [label style command]
+  (eventbox :cursor "hand"
+    (box :class "app ${style}"
+      :orientation "v"
+      :space-evenly false 
+      :valign "center"
+      :halign "center"
+      :spacing 0
+
+      (button 
+        :onclick "sh scripts/execute ${command}"
+        label 
+      )
+    )
+  )
+)
+
+(defwidget sidestuff []
+  (box :class "sidestuff"
+    :orientation "v" 
+    :space-evenly false 
+    :halign "center"
+    :valign "center"
+    (metricVolume :label "󰕾 "
+            :value volume
+            :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}%")
+    (metric :label "󰖱 "
+            :value {EWW_RAM.used_mem_perc}
+            :onchange "")   
+    (metric :label " "
+            :value {EWW_CPU.avg}
+            :onchange "")
+    (metric :label "󰋊 "
+            :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
+            :onchange "")
+    )
+)
+
+(defwidget metric [label value onchange]
+  (box :orientation "h"
+       :class "metric"
+       :space-evenly false
+    (box :class "label" label)
+    (scale :min 0
+           :max 101
+           :active {onchange != ""}
+           :value value
+           :onchange onchange)))
+
+(defwidget metricVolume [label value onchange]
+  (box :orientation "h"
+       :class "metric volume"
+       :space-evenly false
+    (box :class "label" label)
+    (scale :min 0
+           :max 150 
+           :active {onchange != ""}
+           :value value
+           :onchange onchange)))
