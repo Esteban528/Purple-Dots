@@ -148,7 +148,7 @@ return {
 	bold_brightens_ansi_colors = true,
 	colors = {
 		foreground = "#edeff0",
-		background = "#0c0e0f",
+		background = "#0c0d0f",
 		cursor_bg = "#edeff0",
 		cursor_fg = "#edeff0",
 		cursor_border = "#232526",
@@ -189,7 +189,7 @@ return {
 	-- General
 	automatically_reload_config = true,
 	inactive_pane_hsb = { saturation = 1.0, brightness = 1.0 },
-	window_background_opacity = 0.5,
+	window_background_opacity = 0.6,
 	window_close_confirmation = "NeverPrompt",
 	window_frame = { active_titlebar_bg = "#090909", font = font_with_fallback(font_name, { bold = true }) },
 }
