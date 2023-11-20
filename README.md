@@ -10,8 +10,10 @@ My setup for bspwm, sxhkd, eww and scripts, my desktop is minimalist and aesthet
 - **Notifications**: [DUNST](https://dunst-project.org/)
 - **App Selector**: [ROFI](https://github.com/davatorium/rofi)
 - **CLI**: [ZSH](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH) [Starship](https://starship.rs/)
+- **File Manager**: [JOSHUTO](https://github.com/kamiyaa/joshuto)
 
 # Images
 ![](https://github.com/Esteban528/Purple-Dots/blob/main/wall1.png)
 ![](https://github.com/Esteban528/Purple-Dots/blob/main/wall2.png)
 ![](https://github.com/Esteban528/Purple-Dots/blob/main/wall3.png)
+![](https://github.com/Esteban528/Purple-Dots/blob/main/wall4.png)
